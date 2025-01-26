@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Videizalo - AI Video Generator</title>
-    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-white text-gray-900 font-sans">
     <header class="container mx-auto px-4 py-8">
@@ -28,22 +28,36 @@
             </p>
         </section>
 
-        <section id="sample-videos" class="grid md:grid-cols-3 gap-8 mb-16">
-            <div class="bg-gray-100 h-64 flex items-center justify-center">
-                Video 1 Placeholder
+        <!-- Carousel Section -->
+        <section class="relative mb-16">
+            <h2 class="text-3xl font-bold text-blue-700 text-center mb-6">Our Work</h2>
+            <div class="relative overflow-hidden w-full">
+                <!-- Images -->
+                <div class="flex transition-transform duration-700" id="carousel-images">
+                    <img src="https://via.placeholder.com/800x400?text=Image+1" alt="Image 1" class="w-full object-cover">
+                    <img src="https://via.placeholder.com/800x400?text=Image+2" alt="Image 2" class="w-full object-cover">
+                    <img src="https://via.placeholder.com/800x400?text=Image+3" alt="Image 3" class="w-full object-cover">
+                </div>
             </div>
-            <div class="bg-gray-100 h-64 flex items-center justify-center">
-                Video 2 Placeholder
+            <!-- Navigation Buttons -->
+            <div class="absolute top-1/2 transform -translate-y-1/2 left-4">
+                <button id="prev" class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center">
+                    &lt;
+                </button>
             </div>
-            <div class="bg-gray-100 h-64 flex items-center justify-center">
-                Video 3 Placeholder
+            <div class="absolute top-1/2 transform -translate-y-1/2 right-4">
+                <button id="next" class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center">
+                    &gt;
+                </button>
             </div>
         </section>
 
         <section class="text-center mb-16">
             <h2 class="text-3xl font-bold text-blue-700 mb-6">Quick Start</h2>
             <div class="bg-green-50 p-6 rounded-lg max-w-2xl mx-auto text-left">
-                <pre class="whitespace-pre-wrap">
+                <pre class="whitespace-pre-wrap">Run your first AI-powered video generation in seconds!</pre>
+            </div>
+        </section>
 
         <section class="text-center">
             <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full">
@@ -55,5 +69,31 @@
     <footer class="bg-green-50 py-8 mt-16 text-center">
         <p class="text-blue-800">© 2025 Videizalo. Transforming Healthcare Communication.</p>
     </footer>
+
+    <!-- Carousel JavaScript -->
+    <script>
+        const images = document.getElementById("carousel-images");
+        const prevButton = document.getElementById("prev");
+        const nextButton = document.getElementById("next");
+
+        let currentIndex = 0;
+
+        const updateCarousel = () => {
+            const width = images.children[0].clientWidth;
+            images.style.transform = `translateX(-${currentIndex * width}px)`;
+        };
+
+        nextButton.addEventListener("click", () => {
+            currentIndex = (currentIndex + 1) % images.children.length;
+            updateCarousel();
+        });
+
+        prevButton.addEventListener("click", () => {
+            currentIndex = (currentIndex - 1 + images.children.length) % images.children.length;
+            updateCarousel();
+        });
+
+        window.addEventListener("resize", updateCarousel);
+    </script>
 </body>
 </html>
